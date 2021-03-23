@@ -105,14 +105,22 @@ public class WeightTest {
         measurementOf50Gram.subtract(measurementOf50Gram);
     }
 
-//    @Test
+//    @Test(expected = IllegalArgumentException.class)
 //    public void testThrowsExceptionForAdding1kilogramTo1kilometer() throws IllegalArgumentException{
 //        double oneKilogram= 1, oneKilometer=1;
 //        Weight measurementOf1kilogram =new Weight(oneKilogram,Weight.UnitOfWeight.Kilogram);
 //        Length measurementOf1Kilometer =new Length(oneKilometer,Length.UnitOfLength.Kilometer);
 //
-//        assertThrows(IllegalArgumentException.class, ()->measurementOf1kilogram.add(measurementOf1Kilometer));
+//        measurementOf1kilogram.add(measurementOf1Kilometer);
 //
 //    }
+    @Test
+    public void testIfOneKilogramEqualsOneMeter() throws IllegalArgumentException {
+        double oneKilogram = 1, oneMeter = 1;
+        Weight measurementOf1kilogram = new Weight(oneKilogram, Weight.UnitOfWeight.Kilogram);
+        Length measurementOf1meter = new Length(oneMeter, Length.UnitOfLength.Meter);
+       
+        assertNotEquals(measurementOf1kilogram, measurementOf1meter);
+    }
 
 }

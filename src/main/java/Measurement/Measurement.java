@@ -5,23 +5,30 @@ public abstract class Measurement<T extends Measurement> {
     final Unit unit;
 
     public interface Unit {
-        double dimensionInSIunits(double dimension);
+    	public double getMultiplicationFactor();
+    	public double getAdditionFactor();
     }
-
+    
+    public double dimensionInSIunits(double dimension) {
+    	return dimension*unit.getMultiplicationFactor()+unit.getAdditionFactor();
+    }
     public Measurement(double dimension, Unit unit) {
-        double dimensionInSIunits = unit.dimensionInSIunits(dimension);
-        if ((dimensionInSIunits <= 0 && !(unit instanceof Temperature.UnitOfTemperature)) || (dimensionInSIunits < 0 && unit instanceof Temperature.UnitOfTemperature))
-            throw new IllegalArgumentException();
-        this.dimension = dimension;
+    	this.dimension = dimension;
         this.unit = unit;
+    	double dimensionInSIunit = dimensionInSIunits(dimension);
+    	if ((dimensionInSIunit <= 0 && !(unit instanceof Temperature.UnitOfTemperature)) || (dimensionInSIunit < 0 && unit instanceof Temperature.UnitOfTemperature))
+    		throw new IllegalArgumentException();
     }
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) return true;
-        T measurement = (T) object;
+    	if (this == object) return true;
+        if(object.getClass()!=this.getClass())
+        	return false;
+        Measurement<T> measurement = (Measurement<T>) object;
+        boolean areDimensionsSame = dimensionInSIunits(dimension) == measurement.dimensionInSIunits(measurement.dimension);
 
-        return this.unit.dimensionInSIunits(dimension) == measurement.unit.dimensionInSIunits(measurement.dimension);
+        return areDimensionsSame;
     }
 
 }

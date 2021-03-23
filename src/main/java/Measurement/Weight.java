@@ -2,20 +2,27 @@ package Measurement;
 
 public class Weight extends Scalar <Weight>{
     public enum UnitOfWeight implements Unit {
-        Gram(0.001),
-        Kilogram(1);
+        Gram(0.001,0),
+        Kilogram(1,0);
 
         private final double multiplicationFactor;
+        private final double additionFactor;
 
-        UnitOfWeight(double conversionFactorForSIUnit){
-            this.multiplicationFactor = conversionFactorForSIUnit;
+        UnitOfWeight(double multiplicationFactor,double additionFactor){
+            this.multiplicationFactor = multiplicationFactor;
+            this.additionFactor=additionFactor;
         }
+        
+		@Override
+		public double getMultiplicationFactor() {
+			return multiplicationFactor;
+		}
 
-        @Override
-        public double dimensionInSIunits(double dimension) {
-            return dimension * multiplicationFactor;
-        }
-
+		@Override
+		public double getAdditionFactor() {
+			return additionFactor;
+		}
+        
     }
 
     public Weight(double dimension, UnitOfWeight unit) throws IllegalArgumentException {

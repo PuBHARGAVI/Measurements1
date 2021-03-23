@@ -9,12 +9,12 @@ public abstract class Scalar <T extends Scalar> extends Measurement {
     public abstract T createMeasurement(double dimension);
 
     public T add(T measurement) {
-        double sum = this.unit.dimensionInSIunits(dimension) + measurement.unit.dimensionInSIunits(measurement.dimension);
+        double sum = this.dimensionInSIunits(dimension) + measurement.dimensionInSIunits(measurement.dimension);
         return (T) createMeasurement(sum);
     }
 
     public T subtract(T measurement) {
-        double difference = this.unit.dimensionInSIunits(dimension) - measurement.unit.dimensionInSIunits(measurement.dimension);
+        double difference = this.dimensionInSIunits(dimension) - measurement.dimensionInSIunits(measurement.dimension);
 
         try {
             return (T) createMeasurement(difference);

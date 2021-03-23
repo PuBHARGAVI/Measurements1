@@ -12,6 +12,7 @@ public class TemperatureTest {
         double fahrenheitOfValue32 = 32;
         Temperature measurementInCelsius = new Temperature(celsiusOfValue0, Temperature.UnitOfTemperature.Celsius);
         Temperature measurementInFahrenheit = new Temperature(fahrenheitOfValue32, Temperature.UnitOfTemperature.Fahrenheit);
+       
         assertEquals(measurementInCelsius, measurementInFahrenheit);
     }
 

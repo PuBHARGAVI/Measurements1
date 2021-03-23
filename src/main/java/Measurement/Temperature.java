@@ -4,7 +4,7 @@ public class Temperature extends Measurement <Temperature> {
 
     public enum UnitOfTemperature implements Unit {
         Celsius(1, 273.15),
-        Fahrenheit((double) 5 / 9, (-32 * (double) 5 / 9) + 273.15),
+        Fahrenheit(0.5555555555555556, 255.3722222222222),
         Kelvin(1, 0);
 
         private final double multiplicationFactor;
@@ -14,11 +14,16 @@ public class Temperature extends Measurement <Temperature> {
             this.multiplicationFactor = multiplicationFactor;
             this.additionFactor = additionFactor;
         }
+        
+		@Override
+		public double getMultiplicationFactor() {
+			return this.multiplicationFactor;
+		}
 
-        @Override
-        public double dimensionInSIunits(double dimension) {
-            return dimension * multiplicationFactor + additionFactor;
-        }
+		@Override
+		public double getAdditionFactor() {
+			return this.additionFactor;
+		}
     }
 
     public Temperature(double dimension, UnitOfTemperature unit) {
